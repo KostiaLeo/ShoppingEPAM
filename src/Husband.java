@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Husband implements FamilyMan, DBCostumer {
-    private ArrayList<String> requiredProducts;
+    private ArrayList<String> requiredProducts = new ArrayList<>();
     private ArrayList<Product> allProducts = new ArrayList<>();
 
 // --------------- FamilyMan method --------------------------
 
     @Override
     public void getRequiredProducts(FamilyCostumer familyCostumer) {
-        this.requiredProducts = familyCostumer.setRequiredProducts();
+        this.requiredProducts.addAll(familyCostumer.setRequiredProducts());
     }
 
 // ---------------- DB Costumer methods ----------------------

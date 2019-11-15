@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Husband implements FamilyMan, DBCostumer {
     private ArrayList<String> requiredProducts;
@@ -21,37 +22,29 @@ public class Husband implements FamilyMan, DBCostumer {
     @Override
     public void showAllProducts() {
         System.out.println("Total list:\n");
-        for (Product product : allProducts) {
-            System.out.println(product.toString());
-        }
+        allProducts.forEach(System.out::println);
         System.out.println();
     }
 
-// -------------- own methods ---------------------------------
+// ------------------- own methods ----------------------------
 
     private ArrayList<Product> makeListOfPossibleProducts() {
         ArrayList<Product> possibles = new ArrayList<>();
-        for (Product product : allProducts) {
-            if (requiredProducts.contains(product.getName())) {
-                possibles.add(product);
-            }
-        }
+        allProducts.forEach(p -> {
+            if (requiredProducts.contains(p.getName())) possibles.add(p);
+        });
         return possibles;
     }
 
-    public void showPossibleProductsAndTotalPrice() {
+    void showPossibleProductsAndTotalPrice() {
         System.out.println("Bought:\n");
-        for (Product product : makeListOfPossibleProducts()) {
-            System.out.println(product.toString());
-        }
+        makeListOfPossibleProducts().forEach(System.out::println);
         System.out.println("Total price = " + countTotalPrice());
     }
 
     private int countTotalPrice() {
         int totalPrice = 0;
-        for (Product product : makeListOfPossibleProducts()) {
-            totalPrice += product.getPrice();
-        }
+        totalPrice += makeListOfPossibleProducts().stream().mapToInt(Product::getPrice).sum();
         return totalPrice;
     }
 }

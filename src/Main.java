@@ -14,8 +14,9 @@ public class Main {
     }
 
     private void seeWhatExistsInAShop(){
-        new TechShop().giveProductsForCostumer(husband);
-        new FoodShop().giveProductsForCostumer(husband);
+        new TechShop().giveProductsToCustomer(husband);
+        new FoodShop().giveProductsToCustomer(husband);
+        new JewelryShop().giveProductsToCustomer(husband);
     }
 
     private void showAllProductsAndCheckPossiblesBuys(){

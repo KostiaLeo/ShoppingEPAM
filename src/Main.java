@@ -1,22 +1,21 @@
-
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
-        main.listenWifeAndMakeShopping();
+        main.listenWifeAndDoShopping();
     }
 
     private Husband husband = new Husband();
 
-    private void listenWifeAndMakeShopping(){
-        husband.setRequiredProductsFromWife(new Wife());
+    private void listenWifeAndDoShopping(){
+        husband.getRequiredProducts(new Wife());
 
         seeWhatExistsInAShop();
         showAllProductsAndCheckPossiblesBuys();
     }
 
     private void seeWhatExistsInAShop(){
-        DataBaseHandler dataBaseHandler = new DataBaseHandler();
-        dataBaseHandler.giveProductsForCostumer(husband);
+        new TechShop().giveProductsForCostumer(husband);
+        new FoodShop().giveProductsForCostumer(husband);
     }
 
     private void showAllProductsAndCheckPossiblesBuys(){

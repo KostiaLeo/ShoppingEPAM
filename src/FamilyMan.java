@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
 public interface FamilyMan {
-    void setRequiredProductsFromWife(Wife wife);
+    void getRequiredProducts(FamilyCostumer familyCostumer);
     void showAllProducts();
 }

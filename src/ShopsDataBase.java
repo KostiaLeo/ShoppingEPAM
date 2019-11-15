@@ -1,17 +1,17 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
-public class DataBaseHandler {
+abstract class ShopsDataBase implements ShopDBHandler {
+    private String table;
+    private static final int NUMBER_OF_NAME_COLUMN = 2, NUMBER_OF_PRICE_COLUMN = 3;
 
-    private static final String TABLE1 = "IndProducts", TABLE2 = "FoodProducts";
-    private static final String selectQuery = "SELECT * FROM " + TABLE1 + " UNION " + "SELECT * FROM " + TABLE2;
-
-    public void giveProductsForCostumer(DBCostumer costumer) {
-        costumer.sendMeAllProducts(retrieveAllProductsList());
+    public ShopsDataBase(String table) {
+        this.table = table;
     }
 
-    private ArrayList<Product> retrieveAllProductsList() {
+    @Override
+    public ArrayList<Product> retrieveFromDataBase(String tableName) {
         try {
             return queryToDataBase();
         } catch (SQLException e) {
@@ -20,14 +20,18 @@ public class DataBaseHandler {
         return null;
     }
 
-    private ArrayList<Product> queryToDataBase() throws SQLException{
+    private String makeSelectQuery(){
+        return "SELECT * FROM " + table;
+    }
+
+    private ArrayList<Product> queryToDataBase() throws SQLException {
         Connection conn = getConn();
-        PreparedStatement sData = conn.prepareStatement(selectQuery);
+        PreparedStatement sData = Objects.requireNonNull(conn).prepareStatement(makeSelectQuery());
         ResultSet result = sData.executeQuery();
 
         ArrayList<Product> selData = new ArrayList<>();
         while (result.next()) {
-            Product product = new Product(result.getString(2), result.getInt(3));
+            Product product = new Product(result.getString(NUMBER_OF_NAME_COLUMN), result.getInt(NUMBER_OF_PRICE_COLUMN));
             selData.add(product);
         }
         result.close();

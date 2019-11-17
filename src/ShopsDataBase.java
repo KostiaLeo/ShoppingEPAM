@@ -6,7 +6,13 @@ abstract class ShopsDataBase implements ShopDBHandler {
     private String table;
     private static final int NUMBER_OF_NAME_COLUMN = 2, NUMBER_OF_PRICE_COLUMN = 3;
 
-    public ShopsDataBase(String table) {
+    private static final String DRIVER = "com.mysql.jdbc.Driver",
+            URL = "jdbc:mysql://remotemysql.com:3306/DMhXhcvaAp",
+            USER = "DMhXhcvaAp",
+            PASSWORD = "2b8UjA6neH",
+            BASIC_STRING_QUERY = "SELECT * FROM ";
+
+    ShopsDataBase(String table) {
         this.table = table;
     }
 
@@ -20,8 +26,8 @@ abstract class ShopsDataBase implements ShopDBHandler {
         return null;
     }
 
-    private String makeSelectQuery(){
-        return "SELECT * FROM " + table;
+    private String makeSelectQuery() {
+        return BASIC_STRING_QUERY + table;
     }
 
     private ArrayList<Product> queryToDataBase() throws SQLException {
@@ -50,12 +56,7 @@ abstract class ShopsDataBase implements ShopDBHandler {
     }
 
     private Connection createLinkToDataBase() throws ClassNotFoundException, SQLException {
-        String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://remotemysql.com:3306/DMhXhcvaAp";
-        String user = "DMhXhcvaAp";
-        String pass = "2b8UjA6neH";
-
-        Class.forName(driver);
-        return DriverManager.getConnection(url, user, pass);
+        Class.forName(DRIVER);
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

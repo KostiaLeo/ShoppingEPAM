@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
@@ -14,9 +17,15 @@ public class Main {
     }
 
     private void seeWhatExistsInAShop(){
-        new TechShop().giveProductsToCustomer(husband);
-        new FoodShop().giveProductsToCustomer(husband);
-        new JewelryShop().giveProductsToCustomer(husband);
+        shops().forEach(shop -> shop.giveProductsToCustomer(husband));
+    }
+
+    private static ArrayList<AbstractShop> shops(){
+        return new ArrayList<>(Arrays.asList(
+                new TechShop(),
+                new FoodShop(),
+                new JewelryShop()
+        ));
     }
 
     private void showAllProductsAndCheckPossiblesBuys(){

@@ -1,15 +1,14 @@
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
-public class Husband implements FamilyMan, DBCostumer {
+public class Husband implements FamilyMan, DBCustomer {
     private ArrayList<String> requiredProducts = new ArrayList<>();
     private ArrayList<Product> allProducts = new ArrayList<>();
 
 // --------------- FamilyMan method --------------------------
 
     @Override
-    public void getRequiredProducts(FamilyCostumer familyCostumer) {
-        this.requiredProducts.addAll(familyCostumer.setRequiredProducts());
+    public void getRequiredProducts(FamilyCustomer familyCustomer) {
+        this.requiredProducts.addAll(familyCustomer.setRequiredProducts());
     }
 
 // ---------------- DB Costumer methods ----------------------
@@ -28,14 +27,6 @@ public class Husband implements FamilyMan, DBCostumer {
 
 // ------------------- own methods ----------------------------
 
-    private ArrayList<Product> makeListOfPossibleProducts() {
-        ArrayList<Product> possibles = new ArrayList<>();
-        allProducts.forEach(p -> {
-            if (requiredProducts.contains(p.getName())) possibles.add(p);
-        });
-        return possibles;
-    }
-
     void showPossibleProductsAndTotalPrice() {
         System.out.println("Bought:\n");
         makeListOfPossibleProducts().forEach(System.out::println);
@@ -46,5 +37,13 @@ public class Husband implements FamilyMan, DBCostumer {
         int totalPrice = 0;
         totalPrice += makeListOfPossibleProducts().stream().mapToInt(Product::getPrice).sum();
         return totalPrice;
+    }
+
+    private ArrayList<Product> makeListOfPossibleProducts() {
+        ArrayList<Product> possibles = new ArrayList<>();
+        allProducts.forEach(p -> {
+            if (requiredProducts.contains(p.getName())) possibles.add(p);
+        });
+        return possibles;
     }
 }

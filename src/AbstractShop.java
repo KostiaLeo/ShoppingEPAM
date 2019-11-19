@@ -9,7 +9,7 @@ abstract class AbstractShop extends ShopsDataBase implements DBClientAgent {
     }
 
     @Override
-    public void giveProductsToCustomer(DBCostumer costumer) {
+    public void giveProductsToCustomer(DBCustomer costumer) {
         costumer.sendMeAllProducts(super.retrieveFromDataBase(table));
     }
 }

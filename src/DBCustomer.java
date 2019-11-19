@@ -1,5 +1,5 @@
 import java.util.ArrayList;
 
-public interface DBCostumer {
+public interface DBCustomer {
     void sendMeAllProducts(ArrayList<Product> allProducts);
 }

@@ -12,11 +12,11 @@ public class Main {
     private void listenWifeAndDoShopping(){
         husband.getRequiredProducts(new Wife());
 
-        seeWhatExistsInAShop();
+        checkProductsInShops();
         showAllProductsAndCheckPossiblesBuys();
     }
 
-    private void seeWhatExistsInAShop(){
+    private void checkProductsInShops(){
         shops().forEach(shop -> shop.giveProductsToCustomer(husband));
     }
 
